@@ -1,60 +1,61 @@
 <script setup>
-import { Pie } from 'vue-chartjs';
-import { Chart as ChartJS, Tooltip, Legend, Title, ArcElement } from 'chart.js';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { Bar } from 'vue-chartjs';
+import { 
+  Chart as ChartJS,  
+  BarElement, 
+  CategoryScale, 
+  LinearScale 
+} from 'chart.js';
+
 import { getChartLabelPlugin } from 'chart.js-plugin-labels-dv'
-import { ref, computed } from 'vue';
 
-const dynamicData = ref([2284, 732]);
+ChartJS.register(CategoryScale, LinearScale, BarElement);
 
-const onClickDo = () => {
-  dynamicData.value = [dynamicData.value[0] + 1, dynamicData.value[1] - 1];
+const DATA_COUNT = 3; // Get from API
+const dataLabels = [];
+const ticketValues = [182, 150, 211]; 
+const promocodeValues = [99, 356, 103]; 
+
+for (var i = 1; i <= DATA_COUNT; ++i) {
+  dataLabels.push('Этап ' + i);
 }
 
-ChartJS.register(Tooltip, Legend, Title, ArcElement, getChartLabelPlugin(), ChartDataLabels);
-
-const chartData = computed(() => {
-    return { 
-        labels: [
-            'Билеты',
-            'Промокоды',
+const chartData = { 
+        labels: dataLabels,
+        datasets: [ 
+          {
+            label: 'Билеты',
+            data: ticketValues,
+            backgroundColor: 'rgb(255, 99, 132)',
+          }, {
+            label: 'Промокоды',
+            data: promocodeValues,
+            backgroundColor: 'rgb(54, 162, 235)',
+          }
         ],
-        datasets: [ {
-            data: dynamicData.value,
-            label: 'Доход в сомах',
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-            ],
-            hoverOffset: 8
-         } ]
-    }
-
-});
+    };
 
 const chartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      datalabels: {
-        color: 'black',
-        formatter: ((value, ctx) => {
-          return value;
-        })
-      },
       labels: {
-        render: 'percentage',
+        render: 'value',
         precision: 1,
         position: 'outside',
         textMargin: 6
       },
       title: {
         display: true,
-        text: 'Доход от билетов и промокодов за весь период (в сомах)',
+        text: 'Количество проданных билетов и промокодов на каждом этапе',
         position: 'bottom',
         font: {
           'size': 15
         }
+      },
+      legend: {
+        position: 'bottom',
+        align: 'end'
       }
     }
 };
@@ -65,7 +66,7 @@ const chartPlugin = {
     const { ctx } = chart;
     ctx.save();
     ctx.globalCompositeOperation = 'destination-over';
-    ctx.fillStyle = options.color || '#99ffff';
+    ctx.fillStyle = options.color || '#d9fcf5';
     ctx.fillRect(0, 0, chart.width, chart.height);
     ctx.restore();
   }
@@ -74,13 +75,12 @@ const chartPlugin = {
 </script>
 
 <template>
-  <div style="width:500px">
-    <Pie
+  <div>
+    <Bar
         id="bar-chart-1"
         :options="chartOptions"
         :data="chartData"
-        :plugins="[chartPlugin]"
+        :plugins="[chartPlugin, getChartLabelPlugin()]"
     />
   </div>
-  <button v-on:click="onClickDo">Click me</button>
 </template>
