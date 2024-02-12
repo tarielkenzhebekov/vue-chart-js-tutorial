@@ -4,7 +4,7 @@ import { Chart as ChartJS, Tooltip, Legend, Title, ArcElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ref, computed } from 'vue';
 
-const dynamicData = ref([59, 41]);
+const dynamicData = ref([150, 50]);
 
 const onClickDo = () => {
   dynamicData.value = [dynamicData.value[0] + 1, dynamicData.value[1] - 1];
@@ -36,10 +36,15 @@ const chartOptions = {
     maintainAspectRatio: false,
     plugins: {
       datalabels: {
-
-        formatter: ((context, args) => {
-          const index = args.dataIndex;
-          return args.chart.data.labels[index];
+        anchor: 'end',
+        align: 'end',
+        formatter: ((value, ctx) => {
+          const totalSum = ctx.dataset.data.reduce((accumulator, currentValue) => {
+            return accumulator + currentValue;
+          }, 0);
+          console.log(totalSum);
+          const percentage = value / totalSum * 100;
+          return `${percentage.toFixed(1)}%`;
         })
       },
       title: {
