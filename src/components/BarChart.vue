@@ -59,6 +59,18 @@ const chartOptions = {
     }
 };
 
+const chartPlugin = {
+  id: 'customCanvasBackgroundColor',
+  beforeDraw: (chart, args, options) => {
+    const { ctx } = chart;
+    ctx.save();
+    ctx.globalCompositeOperation = 'destination-over';
+    ctx.fillStyle = options.color || '#99ffff';
+    ctx.fillRect(0, 0, chart.width, chart.height);
+    ctx.restore();
+  }
+};
+
 </script>
 
 <template>
@@ -67,6 +79,7 @@ const chartOptions = {
         id="bar-chart-1"
         :options="chartOptions"
         :data="chartData"
+        :plugins="[chartPlugin]"
     />
   </div>
   <button v-on:click="onClickDo">Click me</button>
