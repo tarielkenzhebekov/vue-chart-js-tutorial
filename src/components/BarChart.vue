@@ -2,15 +2,16 @@
 import { Pie } from 'vue-chartjs';
 import { Chart as ChartJS, Tooltip, Legend, Title, ArcElement } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { getChartLabelPlugin } from 'chart.js-plugin-labels-dv'
 import { ref, computed } from 'vue';
 
-const dynamicData = ref([150, 50]);
+const dynamicData = ref([2284, 732]);
 
 const onClickDo = () => {
   dynamicData.value = [dynamicData.value[0] + 1, dynamicData.value[1] - 1];
 }
 
-ChartJS.register(Tooltip, Legend, Title, ArcElement, ChartDataLabels);
+ChartJS.register(Tooltip, Legend, Title, ArcElement, getChartLabelPlugin(), ChartDataLabels);
 
 const chartData = computed(() => {
     return { 
@@ -20,7 +21,7 @@ const chartData = computed(() => {
         ],
         datasets: [ {
             data: dynamicData.value,
-            label: 'В процентах',
+            label: 'Доход в сомах',
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
@@ -36,16 +37,16 @@ const chartOptions = {
     maintainAspectRatio: false,
     plugins: {
       datalabels: {
-        anchor: 'end',
-        align: 'end',
+        color: 'black',
         formatter: ((value, ctx) => {
-          const totalSum = ctx.dataset.data.reduce((accumulator, currentValue) => {
-            return accumulator + currentValue;
-          }, 0);
-          console.log(totalSum);
-          const percentage = value / totalSum * 100;
-          return `${percentage.toFixed(1)}%`;
+          return value;
         })
+      },
+      labels: {
+        render: 'percentage',
+        precision: 1,
+        position: 'outside',
+        textMargin: 6
       },
       title: {
         display: true,
@@ -63,7 +64,7 @@ const chartOptions = {
 <template>
   <div style="width:500px">
     <Pie
-        id="my-chart-id"
+        id="bar-chart-1"
         :options="chartOptions"
         :data="chartData"
     />

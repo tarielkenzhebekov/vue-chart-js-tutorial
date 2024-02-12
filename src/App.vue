@@ -5,6 +5,6 @@ import BarChart from './components/BarChart.vue';
 
 <template>
   <div class="container">
-    <BarChart/>
+    <BarChart>Chart couldn't be loaded.</BarChart>
   </div>
 </template>
