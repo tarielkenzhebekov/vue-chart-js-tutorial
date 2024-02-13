@@ -1,6 +1,7 @@
 <script setup>
 import PieChart from './components/PieChart.vue';
 import BarChart from './components/BarChart.vue';
+import StackedBarChart from './components/StackedBarChart.vue';
 
 </script>
 
@@ -9,6 +10,9 @@ import BarChart from './components/BarChart.vue';
     <div class="grid-item">
       <PieChart>Chart couldn't be loaded.</PieChart>
       <BarChart>Chart couldn't be loaded.</BarChart>
+    </div>
+    <div class="grid-item">
+      <StackedBarChart>Chart couldn't be loaded.</StackedBarChart>
     </div>
   </div>
 </template>

@@ -9,20 +9,21 @@ const data = [2280, 732];
 ChartJS.register(Tooltip, Legend, Title, ArcElement);
 
 const chartData = { 
-        labels: [
-            'Билеты',
-            'Промокоды',
+    labels: [
+        'Билеты',
+        'Промокоды',
+    ],
+    datasets: [ {
+        data: data,
+        label: 'Доход в сомах',
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
         ],
-        datasets: [ {
-            data: data,
-            label: 'Доход в сомах',
-            backgroundColor: [
-                'rgb(255, 99, 132)',
-                'rgb(54, 162, 235)',
-            ],
-            hoverOffset: 8
-         } ]
-    };
+        hoverOffset: 8
+      } 
+    ]
+};
 
 const chartOptions = {
     responsive: true,

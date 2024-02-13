@@ -13,8 +13,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement);
 
 const DATA_COUNT = 3; // Get from API
 const dataLabels = [];
-const ticketValues = [182, 150, 211]; 
-const promocodeValues = [99, 356, 103]; 
+const ticketValues = [252, 200, 261]; 
+const promocodeValues = [159, 390, 203]; 
 
 for (var i = 1; i <= DATA_COUNT; ++i) {
   dataLabels.push('Этап ' + i);
@@ -27,10 +27,16 @@ const chartData = {
             label: 'Билеты',
             data: ticketValues,
             backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgba(255, 255, 255)',
+            borderWidth: 1,
+            borderRadius: 10,
           }, {
             label: 'Промокоды',
             data: promocodeValues,
             backgroundColor: 'rgb(54, 162, 235)',
+            borderColor: 'rgba(255, 255, 255)',
+            borderWidth: 1,
+            borderRadius: 10,
           }
         ],
     };
@@ -54,23 +60,31 @@ const chartOptions = {
         }
       },
       legend: {
-        position: 'bottom',
         align: 'end'
       }
+    },
+    scales: {
+        y: {
+            beginAtZero: true,
+            grace: 20
+        }
     }
 };
 
-const chartPlugin = {
-  id: 'customCanvasBackgroundColor',
-  beforeDraw: (chart, args, options) => {
-    const { ctx } = chart;
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.fillStyle = options.color || '#d9fcf5';
-    ctx.fillRect(0, 0, chart.width, chart.height);
-    ctx.restore();
-  }
-};
+const chartPlugins = [
+  {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = options.color || '#d9fcf5';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    }
+  },
+  getChartLabelPlugin()
+];
 
 </script>
 
@@ -80,7 +94,7 @@ const chartPlugin = {
         id="bar-chart-1"
         :options="chartOptions"
         :data="chartData"
-        :plugins="[chartPlugin, getChartLabelPlugin()]"
+        :plugins="chartPlugins"
     />
   </div>
 </template>
