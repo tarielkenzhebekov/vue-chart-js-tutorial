@@ -26,7 +26,7 @@ const chartData = {
           {
             label: 'Билеты',
             data: ticketValues,
-            backgroundColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(252, 53, 95)',
             borderColor: 'rgba(255, 255, 255)',
             borderWidth: 1,
             borderRadius: 10,

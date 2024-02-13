@@ -2,6 +2,7 @@
 import PieChart from './components/PieChart.vue';
 import BarChart from './components/BarChart.vue';
 import StackedBarChart from './components/StackedBarChart.vue';
+import Stacked100BarChart from './components/Stacked100BarChart.vue';
 
 </script>
 
@@ -13,6 +14,7 @@ import StackedBarChart from './components/StackedBarChart.vue';
     </div>
     <div class="grid-item">
       <StackedBarChart>Chart couldn't be loaded.</StackedBarChart>
+      <Stacked100BarChart>Chart couldn't be loaded.</Stacked100BarChart>
     </div>
   </div>
 </template>

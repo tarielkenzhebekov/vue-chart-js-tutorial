@@ -17,7 +17,7 @@ const chartData = {
         data: data,
         label: 'Доход в сомах',
         backgroundColor: [
-            'rgb(255, 99, 132)',
+            'rgb(252, 53, 95)',
             'rgb(54, 162, 235)',
         ],
         hoverOffset: 8
@@ -30,7 +30,7 @@ const chartOptions = {
     maintainAspectRatio: false,
     plugins: {
       datalabels: {
-        color: 'black',
+        color: 'rgb(40, 40, 40)',
         formatter: ((value, ctx) => {
           return value;
         })
@@ -55,27 +55,31 @@ const chartOptions = {
     }
 };
 
-const chartPlugin = {
-  id: 'customCanvasBackgroundColor',
-  beforeDraw: (chart, args, options) => {
-    const { ctx } = chart;
-    ctx.save();
-    ctx.globalCompositeOperation = 'destination-over';
-    ctx.fillStyle = options.color || '#d9fcf5';
-    ctx.fillRect(0, 0, chart.width, chart.height);
-    ctx.restore();
-  }
-};
+const chartPlugins = [
+  {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+      const { ctx } = chart;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-over';
+      ctx.fillStyle = options.color || '#d9fcf5';
+      ctx.fillRect(0, 0, chart.width, chart.height);
+      ctx.restore();
+    }
+  },
+  ChartDataLabels,
+  getChartLabelPlugin()
+];
 
 </script>
 
 <template>
   <div>
     <Pie
-        id="bar-chart-1"
+        id="pie-chart-1"
         :options="chartOptions"
         :data="chartData"
-        :plugins="[chartPlugin, ChartDataLabels, getChartLabelPlugin()]"
+        :plugins="chartPlugins"
     />
   </div>
 </template>

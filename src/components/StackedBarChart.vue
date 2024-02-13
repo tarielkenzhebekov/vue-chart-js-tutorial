@@ -2,10 +2,10 @@
 import { Bar } from 'vue-chartjs';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-const DATA_COUNT = 3; // Get from API
+const DATA_COUNT = 4; // Get from API
 const dataLabels = [];
-const ticketValues = [140, 145, 211]; 
-const promocodeValues = [140, 200, 103]; 
+const ticketValues = [140, 145, 211, 123]; 
+const promocodeValues = [140, 200, 103, 321]; 
 
 for (var i = 1; i <= DATA_COUNT; ++i) {
   dataLabels.push('Этап ' + i);
@@ -24,7 +24,7 @@ const chartData = {
           {
             label: 'Билеты',
             data: ticketValues,
-            backgroundColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgb(252, 53, 95)',
             borderColor: 'rgb(255, 255, 255)',
             borderWidth: 1,
             borderRadius: roundedCorders,
@@ -56,6 +56,9 @@ const chartOptions = {
         },
         legend: {
             align: 'end'
+        },
+        datalabels: {
+          color: 'rgb(40, 40, 40)'
         }
     },
     scales: {
@@ -108,7 +111,7 @@ const chartPlugins = [
 <template>
   <div>
     <Bar
-        id="bar-chart-1"
+        id="bar-chart-2"
         :options="chartOptions"
         :data="chartData"
         :plugins="chartPlugins"
