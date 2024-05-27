@@ -7,11 +7,11 @@ const dataLabels = [];
 const ticketValues = [140, 145, 211, 123]; 
 const promocodeValues = [140, 200, 103, 321]; 
 
-for (var i = 1; i <= DATA_COUNT; ++i) {
+for (let i = 1; i <= DATA_COUNT; ++i) {
   dataLabels.push('Этап ' + i);
 }
 
-const roundedCorders = {
+const roundedCorners = {
               topLeft: 10,
               topRight: 10,
               bottomLeft: 10,
@@ -27,7 +27,7 @@ const chartData = {
             backgroundColor: 'rgb(252, 53, 95)',
             borderColor: 'rgb(255, 255, 255)',
             borderWidth: 1,
-            borderRadius: roundedCorders,
+            borderRadius: roundedCorners,
             borderSkipped: false
           }, {
             label: 'Промокоды',
@@ -35,7 +35,7 @@ const chartData = {
             backgroundColor: 'rgb(54, 162, 235)',
             borderColor: 'rgba(255, 255, 255)',
             borderWidth: 1,
-            borderRadius: roundedCorders,
+            borderRadius: roundedCorners,
             borderSkipped: false
           }
         ],

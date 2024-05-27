@@ -1,17 +1,14 @@
 <script setup>
 import { Bar } from 'vue-chartjs';
-import { Chart as ChartJS } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import ChartjsPluginStacked100 from "chartjs-plugin-stacked100";
-
-ChartJS.register(ChartjsPluginStacked100);
 
 const DATA_COUNT = 3; // Get from API
 const dataLabels = [];
 const ticketsSold = [432, 919, 123]; 
 const ticketsRemaining = [54, 500, 50]; 
 const promocodesSold = [1234, 138, 92]; 
-const promocodesRemaining= [400, 13, 22]; 
+const promocodesRemaining= [400, 53, 22]; 
 
 for (var i = 1; i <= DATA_COUNT; ++i) {
   dataLabels.push('Этап ' + i);
@@ -124,6 +121,7 @@ const chartPlugins = [
     }
   },
   ChartDataLabels,
+  ChartjsPluginStacked100
 ]
 
 </script>

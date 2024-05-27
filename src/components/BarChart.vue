@@ -16,7 +16,7 @@ const dataLabels = [];
 const ticketValues = [252, 200, 261]; 
 const promocodeValues = [159, 390, 203]; 
 
-for (var i = 1; i <= DATA_COUNT; ++i) {
+for (let i = 1; i <= DATA_COUNT; ++i) {
   dataLabels.push('Этап ' + i);
 }
 
